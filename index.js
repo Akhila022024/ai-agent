@@ -1,44 +1,25 @@
-function login() {
-  const enteredPhone = document.getElementById("num").value;
-  const enteredPass = document.getElementById("pass").value;
-  const result = document.getElementById("res");
-  // below is database
-  phone = 1234;
-  pass = "test";
-  checkPhone(enteredPhone)
-    .then((isnum) => {
-      if (isnum) {
-        checkPass(enteredPass)
-          .then((ispass) => {
-            if (ispass) {
-              alert("Login success");
-            }
-          })
-          .catch(() => {
-            alert("Invalid  pass");
-          });
-      }
-    })
-    .catch(() => {
-      alert("Invalid  user");
+function checkCredentials(phone, password) {
+    return new Promise((resolve, reject) => {
+        if (phone === "1234" && password === "1234") {
+            resolve("Login successful!");
+        } else {
+            reject("Invalid phone or password.");
+        }
     });
 }
-function checkPhone(n) {
-  return new Promise((resolve, reject) => {
-    if (n == phone) {
-      resolve(true);
-    } else {
-      reject(false);
-    }
-  });
-}
 
-function checkPass(p) {
-  return new Promise((resolve, reject) => {
-    if (p == pass) {
-      resolve(true);
-    } else {
-      reject(false);
-    }
-  });
+function login() {
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
+    const messageBox = document.getElementById("message");
+
+    checkCredentials(phone, password)
+        .then(success => {
+            messageBox.style.color = "green";
+            messageBox.innerText = success;
+        })
+        .catch(error => {
+            messageBox.style.color = "red";
+            messageBox.innerText = error;
+        });
 }
